@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ContactesQR</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .contact-item {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .contact-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .icon {
+            font-size: 1.5rem;
+        }
+        .contact-info {
+            text-align: left;
+        }
+        .contact-label {
+            font-size: 0.8rem;
+            color: #888;
+            text-transform: uppercase;
+        }
+        .contact-value {
+            color: #333;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        a.contact-value:hover { color: #667eea; }
+        .footer {
+            margin-top: 30px;
+            color: #999;
+            font-size: 0.8rem;
+        }
+        .qr-placeholder {
+            width: 150px;
+            height: 150px;
+            background: #eee;
+            border-radius: 10px;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>📇 ContactesQR</h1>
+        <p class="subtitle">Targeta de contacte digital</p>
+        
+        <div class="qr-placeholder">📱 QR Code</div>
+        
+        <div class="contact-item">
+            <span class="icon">📞</span>
+            <div class="contact-info">
+                <div class="contact-label">Telèfon</div>
+                <a href="tel:+34600000000" class="contact-value">+34 600 000 000</a>
+            </div>
+        </div>
+        
+        <div class="contact-item">
+            <span class="icon">✉️</span>
+            <div class="contact-info">
+                <div class="contact-label">Email</div>
+                <a href="mailto:contacte@exemple.com" class="contact-value">contacte@exemple.com</a>
+            </div>
+        </div>
+        
+        <div class="contact-item">
+            <span class="icon">🏢</span>
+            <div class="contact-info">
+                <div class="contact-label">Adreça</div>
+                <span class="contact-value">Palma de Mallorca</span>
+            </div>
+        </div>
+        
+        <p class="footer">Creat amb 💜 per VictorIA</p>
+    </div>
+</body>
+</html>
