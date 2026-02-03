@@ -1,119 +1,204 @@
 <!DOCTYPE html>
-<html lang="ca">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ContactesQR</title>
+    <title>Liaison Psychiatry Team - Emergency Contacts</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1a5276 0%, #2980b9 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            print-color-adjust: exact;
+            -webkit-print-color-adjust: exact;
         }
         .card {
             background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
-            max-width: 400px;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            max-width: 450px;
             width: 100%;
-            text-align: center;
         }
-        h1 {
-            color: #333;
-            font-size: 2rem;
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #1a5276;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+        .logo {
+            font-size: 2.5rem;
             margin-bottom: 10px;
         }
+        h1 {
+            color: #1a5276;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
         .subtitle {
-            color: #666;
-            margin-bottom: 30px;
+            color: #5d6d7e;
+            font-size: 0.95rem;
+        }
+        .section-title {
+            color: #1a5276;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 20px 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         .contact-item {
             background: #f8f9fa;
-            border-radius: 12px;
-            padding: 15px 20px;
+            border-left: 4px solid #2980b9;
+            border-radius: 8px;
+            padding: 12px 15px;
             margin: 10px 0;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            transition: transform 0.2s, box-shadow 0.2s;
         }
         .contact-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: #eef2f7;
         }
-        .icon {
-            font-size: 1.5rem;
-        }
-        .contact-info {
-            text-align: left;
-        }
-        .contact-label {
+        .contact-role {
             font-size: 0.8rem;
-            color: #888;
+            color: #7f8c8d;
             text-transform: uppercase;
-        }
-        .contact-value {
-            color: #333;
             font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .contact-name {
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 1rem;
+            margin: 3px 0;
+        }
+        .contact-phone {
+            color: #1a5276;
+            font-weight: 500;
             text-decoration: none;
+            font-size: 1.1rem;
         }
-        a.contact-value:hover { color: #667eea; }
-        .footer {
-            margin-top: 30px;
-            color: #999;
-            font-size: 0.8rem;
-        }
-        .qr-placeholder {
-            width: 150px;
-            height: 150px;
-            background: #eee;
-            border-radius: 10px;
-            margin: 20px auto;
+        .contact-phone:hover { text-decoration: underline; }
+        .contact-links {
             display: flex;
+            gap: 15px;
             align-items: center;
-            justify-content: center;
-            color: #999;
+            margin-top: 5px;
+        }
+        .sms-link {
+            color: #27ae60;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+        .sms-link:hover { text-decoration: underline; }
+        .qr-section {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+        .qr-code {
+            width: 120px;
+            height: 120px;
+            margin: 10px auto;
+        }
+        .qr-code img {
+            width: 100%;
+            height: 100%;
+        }
+        .qr-label {
+            font-size: 0.8rem;
+            color: #7f8c8d;
+        }
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #95a5a6;
+            font-size: 0.75rem;
+        }
+        .emergency-badge {
+            background: #e74c3c;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        @media print {
+            body { background: white; padding: 0; }
+            .card { box-shadow: none; border: 1px solid #ddd; }
         }
     </style>
 </head>
 <body>
     <div class="card">
-        <h1>📇 ContactesQR</h1>
-        <p class="subtitle">Targeta de contacte digital</p>
+        <div class="header">
+            <div class="logo">🏥</div>
+            <h1>Liaison Psychiatry Team</h1>
+            <p class="subtitle">Emergency Contact Directory</p>
+        </div>
         
-        <div class="qr-placeholder">📱 QR Code</div>
+        <div class="section-title">
+            <span class="emergency-badge">24/7</span>
+            Emergency Contacts
+        </div>
         
         <div class="contact-item">
-            <span class="icon">📞</span>
-            <div class="contact-info">
-                <div class="contact-label">Telèfon</div>
-                <a href="tel:+34600000000" class="contact-value">+34 600 000 000</a>
+            <div class="contact-role">On-Call Psychiatrist</div>
+            <div class="contact-name">Dr. Sarah Mitchell</div>
+            <div class="contact-links">
+                <a href="tel:+44123456789" class="contact-phone">📞 Call</a>
+                <a href="sms:+44123456789" class="sms-link">💬 SMS</a>
             </div>
         </div>
         
         <div class="contact-item">
-            <span class="icon">✉️</span>
-            <div class="contact-info">
-                <div class="contact-label">Email</div>
-                <a href="mailto:contacte@exemple.com" class="contact-value">contacte@exemple.com</a>
+            <div class="contact-role">Senior Liaison Nurse</div>
+            <div class="contact-name">James Thompson</div>
+            <div class="contact-links">
+                <a href="tel:+44123456790" class="contact-phone">📞 Call</a>
+                <a href="sms:+44123456790" class="sms-link">💬 SMS</a>
             </div>
         </div>
         
         <div class="contact-item">
-            <span class="icon">🏢</span>
-            <div class="contact-info">
-                <div class="contact-label">Adreça</div>
-                <span class="contact-value">Palma de Mallorca</span>
+            <div class="contact-role">Crisis Team Lead</div>
+            <div class="contact-name">Dr. Emma Williams</div>
+            <div class="contact-links">
+                <a href="tel:+44123456791" class="contact-phone">📞 Call</a>
+                <a href="sms:+44123456791" class="sms-link">💬 SMS</a>
             </div>
         </div>
         
-        <p class="footer">Creat amb 💜 per VictorIA</p>
+        <div class="contact-item">
+            <div class="contact-role">Department Secretary</div>
+            <div class="contact-name">Reception Desk</div>
+            <div class="contact-links">
+                <a href="tel:+44123456792" class="contact-phone">📞 Call</a>
+                <a href="sms:+44123456792" class="sms-link">💬 SMS</a>
+            </div>
+        </div>
+
+        <div class="section-title">📧 Email</div>
+        <div class="contact-item">
+            <a href="mailto:liaison.psychiatry@hospital.nhs.uk" class="contact-phone">liaison.psychiatry@hospital.nhs.uk</a>
+        </div>
+        
+        <div class="qr-section">
+            <div class="qr-code">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://liaisonpsychiatryteam.netlify.app" alt="QR Code">
+            </div>
+        </div>
+        
+        <div class="footer">
+            Liaison Psychiatry Team
+        </div>
     </div>
 </body>
 </html>
