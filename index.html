@@ -135,7 +135,7 @@
         
         .quick-contact {
             display: grid;
-            grid-template-columns: 1fr auto auto;
+            grid-template-columns: 1fr 70px auto;
             align-items: center;
             gap: 10px;
             padding: 10px 0;
@@ -146,6 +146,12 @@
             font-weight: 600;
             color: #2c3e50;
             font-size: 0.95rem;
+        }
+        .quick-contact .badge-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
         }
         .quick-contact .number {
             font-family: 'SF Mono', 'Consolas', monospace;
@@ -258,12 +264,18 @@
         <div class="service-card">
             <div class="quick-contact">
                 <span class="name">Samaritans</span>
-                <span class="free-badge">Free 24/7</span>
+                <span class="badge-col">
+                    <span class="free-badge">Free</span>
+                    <span class="free-badge">24/7</span>
+                </span>
                 <a href="tel:116123" class="number">📞 116 123</a>
             </div>
             <div class="quick-contact">
                 <span class="name">Pieta House</span>
-                <span class="free-badge">Free 24/7</span>
+                <span class="badge-col">
+                    <span class="free-badge">Free</span>
+                    <span class="free-badge">24/7</span>
+                </span>
                 <a href="tel:1800247247" class="number">📞 1800 247 247</a>
             </div>
             <p class="note" style="margin-top: 10px;">These are Irish freephone numbers. Tap to call.</p>
