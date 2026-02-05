@@ -133,37 +133,40 @@
         }
         .btn-whatsapp:hover { background: #20bd5a; }
         
-        .quick-contact {
-            display: grid;
-            grid-template-columns: 1fr 70px auto;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
+        .helpline-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 12px 15px;
+            margin: 10px 0;
         }
-        .quick-contact:last-child { border-bottom: none; }
-        .quick-contact .name {
-            font-weight: 600;
-            color: #2c3e50;
-            font-size: 0.95rem;
-        }
-        .quick-contact .badge-col {
+        .helpline-header {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            gap: 2px;
+            margin-bottom: 8px;
         }
-        .quick-contact .number {
-            font-family: 'SF Mono', 'Consolas', monospace;
+        .helpline-name {
+            font-weight: 700;
+            color: #2c3e50;
             font-size: 1rem;
-            text-align: right;
         }
-        .quick-contact a {
-            color: #1a5276;
+        .helpline-badges {
+            display: flex;
+            gap: 5px;
+        }
+        .helpline-call {
+            display: block;
+            background: #3498db;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
             text-decoration: none;
+            font-size: 1.1rem;
             font-weight: 600;
+            font-family: 'SF Mono', 'Consolas', monospace;
         }
-        .quick-contact a:hover { text-decoration: underline; }
+        .helpline-call:hover { background: #2980b9; }
         
         .free-badge {
             background: #27ae60;
@@ -261,25 +264,29 @@
         <!-- CRISIS LINES -->
         <div class="section-title">📞 Crisis Helplines</div>
         
-        <div class="service-card">
-            <div class="quick-contact">
-                <span class="name">Samaritans</span>
-                <span class="badge-col">
+        <div class="helpline-item">
+            <div class="helpline-header">
+                <span class="helpline-name">Samaritans</span>
+                <div class="helpline-badges">
                     <span class="free-badge">Free</span>
                     <span class="free-badge">24/7</span>
-                </span>
-                <a href="tel:116123" class="number">📞 116 123</a>
+                </div>
             </div>
-            <div class="quick-contact">
-                <span class="name">Pieta House</span>
-                <span class="badge-col">
-                    <span class="free-badge">Free</span>
-                    <span class="free-badge">24/7</span>
-                </span>
-                <a href="tel:1800247247" class="number">📞 1800 247 247</a>
-            </div>
-            <p class="note" style="margin-top: 10px;">These are Irish freephone numbers. Tap to call.</p>
+            <a href="tel:116123" class="helpline-call">📞 116 123</a>
         </div>
+        
+        <div class="helpline-item">
+            <div class="helpline-header">
+                <span class="helpline-name">Pieta House</span>
+                <div class="helpline-badges">
+                    <span class="free-badge">Free</span>
+                    <span class="free-badge">24/7</span>
+                </div>
+            </div>
+            <a href="tel:1800247247" class="helpline-call">📞 1800 247 247</a>
+        </div>
+        
+        <p class="note">These are Irish freephone numbers. Tap to call.</p>
 
         <!-- EMERGENCY -->
         <div class="section-title">🚨 Emergency</div>
