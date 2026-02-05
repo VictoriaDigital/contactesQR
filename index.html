@@ -20,9 +20,9 @@
         .card {
             background: white;
             border-radius: 16px;
-            padding: 35px;
+            padding: 30px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            max-width: 450px;
+            max-width: 500px;
             width: 100%;
         }
         .header {
@@ -31,108 +31,177 @@
             padding-bottom: 20px;
             margin-bottom: 25px;
         }
-        .logo {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        h1 {
-            color: #1a5276;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        .subtitle {
-            color: #5d6d7e;
-            font-size: 0.95rem;
-        }
+        .logo { font-size: 2.5rem; margin-bottom: 10px; }
+        h1 { color: #1a5276; font-size: 1.5rem; font-weight: 700; margin-bottom: 5px; }
+        .subtitle { color: #5d6d7e; font-size: 0.95rem; }
+        
         .section-title {
             color: #1a5276;
             font-size: 1.1rem;
             font-weight: 600;
-            margin: 20px 0 15px 0;
+            margin: 25px 0 12px 0;
             display: flex;
             align-items: center;
             gap: 8px;
         }
-        .contact-item {
+        
+        .service-card {
             background: #f8f9fa;
             border-left: 4px solid #2980b9;
             border-radius: 8px;
-            padding: 12px 15px;
-            margin: 10px 0;
+            padding: 15px;
+            margin: 12px 0;
         }
-        .contact-item:hover {
-            background: #eef2f7;
+        .service-card.highlight {
+            border-left-color: #27ae60;
+            background: #f0fdf4;
         }
-        .contact-role {
-            font-size: 0.8rem;
-            color: #7f8c8d;
-            text-transform: uppercase;
-            font-weight: 600;
-            letter-spacing: 0.5px;
+        .service-card.emergency {
+            border-left-color: #e74c3c;
+            background: #fef2f2;
         }
-        .contact-name {
+        
+        .service-name {
             color: #2c3e50;
-            font-weight: 600;
-            font-size: 1rem;
-            margin: 3px 0;
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 5px;
         }
-        .contact-phone {
+        .service-desc {
+            color: #5d6d7e;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+        .service-address {
+            color: #7f8c8d;
+            font-size: 0.82rem;
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+        .service-hours {
+            display: inline-block;
+            background: #e8f4fd;
             color: #1a5276;
-            font-weight: 500;
-            text-decoration: none;
-            font-size: 1.1rem;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            margin-bottom: 10px;
         }
-        .contact-phone:hover { text-decoration: underline; }
+        .service-hours.always {
+            background: #fde8e8;
+            color: #c0392b;
+        }
+        
         .contact-links {
             display: flex;
-            gap: 15px;
-            align-items: center;
-            margin-top: 5px;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
         }
-        .sms-link {
-            color: #27ae60;
-            font-weight: 500;
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 14px;
+            border-radius: 8px;
             text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .contact-btn:hover { transform: translateY(-1px); }
+        .btn-call {
+            background: #1a5276;
+            color: white;
+        }
+        .btn-call:hover { background: #154360; }
+        .btn-email {
+            background: #8e44ad;
+            color: white;
+        }
+        .btn-email:hover { background: #7d3c98; }
+        .btn-sms {
+            background: #27ae60;
+            color: white;
+        }
+        .btn-sms:hover { background: #219a52; }
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+        }
+        .btn-whatsapp:hover { background: #20bd5a; }
+        
+        .quick-contact {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .quick-contact:last-child { border-bottom: none; }
+        .quick-contact .name {
+            flex: 1;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.95rem;
+        }
+        .quick-contact .number {
+            font-family: 'SF Mono', 'Consolas', monospace;
             font-size: 1rem;
         }
-        .sms-link:hover { text-decoration: underline; }
+        .quick-contact a {
+            color: #1a5276;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .quick-contact a:hover { text-decoration: underline; }
+        
+        .free-badge {
+            background: #27ae60;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        
+        .note {
+            font-size: 0.78rem;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-top: 5px;
+            line-height: 1.4;
+        }
+        
         .qr-section {
             text-align: center;
             margin-top: 25px;
             padding-top: 20px;
             border-top: 1px solid #e0e0e0;
         }
-        .qr-code {
-            width: 120px;
-            height: 120px;
-            margin: 10px auto;
-        }
-        .qr-code img {
-            width: 100%;
-            height: 100%;
-        }
-        .qr-label {
-            font-size: 0.8rem;
-            color: #7f8c8d;
-        }
+        .qr-code { width: 100px; height: 100px; margin: 10px auto; }
+        .qr-code img { width: 100%; height: 100%; }
+        .qr-label { font-size: 0.75rem; color: #7f8c8d; }
+        
         .footer {
             margin-top: 20px;
             text-align: center;
             color: #95a5a6;
             font-size: 0.75rem;
         }
-        .emergency-badge {
-            background: #e74c3c;
-            color: white;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
+        
         @media print {
             body { background: white; padding: 0; }
             .card { box-shadow: none; border: 1px solid #ddd; }
+            .contact-btn { border: 1px solid #ccc; }
+        }
+        @media (max-width: 400px) {
+            .card { padding: 20px; }
+            .contact-links { flex-direction: column; }
+            .contact-btn { justify-content: center; }
         }
     </style>
 </head>
@@ -141,63 +210,86 @@
         <div class="header">
             <div class="logo">🏥</div>
             <h1>Liaison Psychiatry Team</h1>
-            <p class="subtitle">Emergency Contact Directory</p>
+            <p class="subtitle">Mental Health Support Directory</p>
         </div>
+
+        <!-- SOLACE CAFÉ -->
+        <div class="section-title">☕ Community Support</div>
         
-        <div class="section-title">
-            <span class="emergency-badge">24/7</span>
-            Emergency Contacts
-        </div>
-        
-        <div class="contact-item">
-            <div class="contact-role">On-Call Psychiatrist</div>
-            <div class="contact-name">Dr. Sarah Mitchell</div>
-            <div class="contact-links">
-                <a href="tel:+44123456789" class="contact-phone">📞 Call</a>
-                <a href="sms:+44123456789" class="sms-link">💬 SMS</a>
+        <div class="service-card highlight">
+            <div class="service-name">Solace Café <span class="free-badge">Free</span></div>
+            <div class="service-desc">
+                Confidential, non-clinical mental health support for adults experiencing emotional distress, anxiety, or feeling overwhelmed. Book a 1-hour session with trained support workers and peer connectors. Access coping strategies, one-to-one support, and sign-posting to local services.
             </div>
-        </div>
-        
-        <div class="contact-item">
-            <div class="contact-role">Senior Liaison Nurse</div>
-            <div class="contact-name">James Thompson</div>
-            <div class="contact-links">
-                <a href="tel:+44123456790" class="contact-phone">📞 Call</a>
-                <a href="sms:+44123456790" class="sms-link">💬 SMS</a>
+            <div class="service-address">
+                📍 Limerick Mental Health Association, Sarsfield Bridge, Limerick<br>
+                <span style="font-size: 0.75rem;">(Former Pier One Hotel premises)</span>
             </div>
-        </div>
-        
-        <div class="contact-item">
-            <div class="contact-role">Crisis Team Lead</div>
-            <div class="contact-name">Dr. Emma Williams</div>
+            <div class="service-hours">🕕 Thu–Sun, 6pm – Midnight</div>
             <div class="contact-links">
-                <a href="tel:+44123456791" class="contact-phone">📞 Call</a>
-                <a href="sms:+44123456791" class="sms-link">💬 SMS</a>
+                <a href="tel:061446786" class="contact-btn btn-call">📞 061 446 786</a>
+                <a href="mailto:solace@limerickmentalhealth.ie" class="contact-btn btn-email">✉️ Email</a>
             </div>
+            <div class="contact-links" style="margin-top: 8px;">
+                <a href="sms:0852612025" class="contact-btn btn-sms">💬 Text</a>
+                <a href="https://wa.me/353852612025" class="contact-btn btn-whatsapp">WhatsApp</a>
+            </div>
+            <p class="note">Book by text, WhatsApp or phone call to 085 261 2025</p>
         </div>
+
+        <!-- TEXT ABOUT IT -->
+        <div class="section-title">💬 Text Support</div>
         
-        <div class="contact-item">
-            <div class="contact-role">Department Secretary</div>
-            <div class="contact-name">Reception Desk</div>
+        <div class="service-card">
+            <div class="service-name">Text About It <span class="free-badge">Free</span></div>
+            <div class="service-desc">24/7 anonymous text-based support service.</div>
             <div class="contact-links">
-                <a href="tel:+44123456792" class="contact-phone">📞 Call</a>
-                <a href="sms:+44123456792" class="sms-link">💬 SMS</a>
+                <a href="https://wa.me/353858086018?text=HELLO" class="contact-btn btn-whatsapp">WhatsApp "HELLO"</a>
+                <a href="sms:50808?body=HELLO" class="contact-btn btn-sms">Text 50808</a>
+            </div>
+            <p class="note">💡 48, An Post & Clear Mobile: Use WhatsApp for free, or text HELLO to 086 180 0280 (standard SMS rates may apply)</p>
+        </div>
+
+        <!-- CRISIS LINES -->
+        <div class="section-title">📞 Crisis Helplines</div>
+        
+        <div class="service-card">
+            <div class="quick-contact">
+                <span class="name">Samaritans</span>
+                <span class="free-badge">Free 24/7</span>
+                <a href="tel:116123" class="number">📞 116 123</a>
+            </div>
+            <div class="quick-contact">
+                <span class="name">Pieta House</span>
+                <span class="free-badge">Free 24/7</span>
+                <a href="tel:1800247247" class="number">📞 1800 247 247</a>
             </div>
         </div>
 
-        <div class="section-title">📧 Email</div>
-        <div class="contact-item">
-            <a href="mailto:liaison.psychiatry@hospital.nhs.uk" class="contact-phone">liaison.psychiatry@hospital.nhs.uk</a>
+        <!-- EMERGENCY -->
+        <div class="section-title">🚨 Emergency</div>
+        
+        <div class="service-card emergency">
+            <div class="service-name">Emergency Department</div>
+            <div class="service-hours always">Available 24/7</div>
+            <div class="service-desc">
+                For mental health crisis assessment. If you or someone is at <strong>immediate risk of harm</strong> or needs <strong>urgent medical treatment</strong>, always call emergency services.
+            </div>
+            <div class="contact-links">
+                <a href="tel:999" class="contact-btn btn-call" style="background:#e74c3c;">📞 999</a>
+                <a href="tel:112" class="contact-btn btn-call" style="background:#e74c3c;">📞 112</a>
+            </div>
         </div>
         
         <div class="qr-section">
             <div class="qr-code">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://liaisonpsychiatryteam.netlify.app" alt="QR Code">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://liaisonpsychiatryteam.netlify.app" alt="QR Code">
             </div>
+            <div class="qr-label">Scan to save this page</div>
         </div>
         
         <div class="footer">
-            Liaison Psychiatry Team
+            Liaison Psychiatry Team – University Hospital Limerick
         </div>
     </div>
 </body>
