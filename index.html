@@ -113,10 +113,10 @@
         }
         .contact-btn:hover { transform: translateY(-1px); }
         .btn-call {
-            background: #1a5276;
+            background: #3498db;
             color: white;
         }
-        .btn-call:hover { background: #154360; }
+        .btn-call:hover { background: #2980b9; }
         .btn-email {
             background: #8e44ad;
             color: white;
@@ -134,7 +134,8 @@
         .btn-whatsapp:hover { background: #20bd5a; }
         
         .quick-contact {
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr auto auto;
             align-items: center;
             gap: 10px;
             padding: 10px 0;
@@ -142,7 +143,6 @@
         }
         .quick-contact:last-child { border-bottom: none; }
         .quick-contact .name {
-            flex: 1;
             font-weight: 600;
             color: #2c3e50;
             font-size: 0.95rem;
@@ -150,6 +150,7 @@
         .quick-contact .number {
             font-family: 'SF Mono', 'Consolas', monospace;
             font-size: 1rem;
+            text-align: right;
         }
         .quick-contact a {
             color: #1a5276;
@@ -222,7 +223,7 @@
                 Confidential, non-clinical mental health support for adults experiencing emotional distress, anxiety, or feeling overwhelmed. Book a 1-hour session with trained support workers and peer connectors. Access coping strategies, one-to-one support, and sign-posting to local services.
             </div>
             <div class="service-address">
-                📍 Limerick Mental Health Association, Sarsfield Bridge, Limerick<br>
+                <a href="https://www.google.com/maps/search/?api=1&query=Limerick+Mental+Health+Association+Sarsfield+Bridge+Limerick" target="_blank" style="color: #27ae60; text-decoration: none;">📍 Limerick Mental Health Association, Sarsfield Bridge, Limerick</a><br>
                 <span style="font-size: 0.75rem;">(Former Pier One Hotel premises)</span>
             </div>
             <div class="service-hours">🕕 Thu–Sun, 6pm – Midnight</div>
