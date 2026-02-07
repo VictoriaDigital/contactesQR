@@ -1,0 +1,8 @@
+{
+  "name": "contactesqr",
+  "version": "1.0.0",
+  "description": "Liaison Psychiatry Team - Emergency Contacts with SMS feature",
+  "dependencies": {
+    "twilio": "^4.23.0"
+  }
+}
