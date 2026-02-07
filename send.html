@@ -43,7 +43,7 @@
             margin-bottom: 8px;
             font-size: 0.95rem;
         }
-        input, textarea {
+        input {
             width: 100%;
             padding: 12px 15px;
             border: 2px solid #e0e0e0;
@@ -52,13 +52,26 @@
             font-family: inherit;
             transition: border-color 0.2s;
         }
-        input:focus, textarea:focus {
+        input:focus {
             outline: none;
             border-color: #3498db;
         }
-        textarea {
-            resize: vertical;
-            min-height: 120px;
+        
+        .message-preview {
+            background: #f8f9fa;
+            border-left: 4px solid #27ae60;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 0.9rem;
+            color: #2c3e50;
+            line-height: 1.5;
+        }
+        .message-preview-title {
+            font-weight: 600;
+            color: #1a5276;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
         }
         
         .btn {
@@ -111,29 +124,6 @@
         }
         .back-link:hover { text-decoration: underline; }
         
-        .templates {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #e0e0e0;
-        }
-        .templates-title {
-            font-size: 0.85rem;
-            color: #7f8c8d;
-            margin-bottom: 10px;
-        }
-        .template-btn {
-            display: inline-block;
-            padding: 6px 12px;
-            background: #f0f0f0;
-            border: none;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            margin: 3px;
-            transition: background 0.2s;
-        }
-        .template-btn:hover { background: #e0e0e0; }
-        
         /* Login overlay */
         .login-overlay {
             position: fixed;
@@ -180,29 +170,20 @@
     <div class="card hidden" id="mainContent">
         <div class="header">
             <div class="logo">💬</div>
-            <h1>Send SMS to Patient</h1>
+            <h1>Send Follow-up SMS</h1>
             <p class="subtitle">Liaison Psychiatry Team</p>
         </div>
 
         <form id="smsForm" onsubmit="sendSMS(event)">
             <div class="form-group">
                 <label for="phone">📱 Patient Phone Number</label>
-                <input type="tel" id="phone" placeholder="e.g. 087 123 4567 or +353871234567" required>
+                <input type="tel" id="phone" placeholder="e.g. 087 123 4567" required>
             </div>
 
-            <div class="form-group">
-                <label for="message">✉️ Message</label>
-                <textarea id="message" placeholder="Type your message here..." required maxlength="1600"></textarea>
-                <div style="text-align: right; font-size: 0.8rem; color: #7f8c8d; margin-top: 5px;">
-                    <span id="charCount">0</span>/1600 characters
-                </div>
-                
-                <div class="templates">
-                    <div class="templates-title">Quick templates:</div>
-                    <button type="button" class="template-btn" onclick="useTemplate('appointment')">📅 Appointment Reminder</button>
-                    <button type="button" class="template-btn" onclick="useTemplate('followup')">📞 Follow-up Call</button>
-                    <button type="button" class="template-btn" onclick="useTemplate('resources')">📋 Resources</button>
-                </div>
+            <div class="message-preview">
+                <div class="message-preview-title">📄 Message that will be sent:</div>
+                We're sorry you could not meet our Liaison Psychiatry Team. If you're still struggling, support is available: 🔗 https://liaisonpsychiatryteam.netlify.app/<br><br>
+                This is an automated message - please do not reply. If you're in crisis, call 999 or go to your nearest Emergency Department.
             </div>
 
             <button type="submit" class="btn" id="sendBtn">📤 Send SMS</button>
@@ -216,11 +197,7 @@
     <script>
         let accessPassword = '';
         
-        const templates = {
-            appointment: "Hi, this is a reminder from the Liaison Psychiatry Team at University Hospital Limerick. You have an appointment scheduled. If you need to reschedule, please contact us. - LPT",
-            followup: "Hi, this is the Liaison Psychiatry Team at UHL. We wanted to follow up on your recent visit. Please call us back at your convenience or reply to this message. - LPT",
-            resources: "Hi, the Liaison Psychiatry Team wanted to share some support resources: Samaritans 116 123 (free 24/7), Pieta House 1800 247 247, Solace Café 061 446 786. Take care. - LPT"
-        };
+        const FIXED_MESSAGE = "We're sorry you could not meet our Liaison Psychiatry Team. If you're still struggling, support is available: 🔗 https://liaisonpsychiatryteam.netlify.app/\n\nThis is an automated message - please do not reply. If you're in crisis, call 999 or go to your nearest Emergency Department.";
         
         function login() {
             const password = document.getElementById('loginPassword').value;
@@ -228,11 +205,7 @@
                 showLoginStatus('Please enter password', 'error');
                 return;
             }
-            
-            // Store password for API calls
             accessPassword = password;
-            
-            // Hide login, show main content
             document.getElementById('loginOverlay').classList.add('hidden');
             document.getElementById('mainContent').classList.remove('hidden');
         }
@@ -243,32 +216,18 @@
             status.className = 'status ' + type;
         }
         
-        function useTemplate(name) {
-            document.getElementById('message').value = templates[name];
-            updateCharCount();
-        }
-        
-        function updateCharCount() {
-            const count = document.getElementById('message').value.length;
-            document.getElementById('charCount').textContent = count;
-        }
-        
-        document.getElementById('message').addEventListener('input', updateCharCount);
-        
         async function sendSMS(e) {
             e.preventDefault();
             
             const phone = document.getElementById('phone').value.trim();
-            const message = document.getElementById('message').value.trim();
             const btn = document.getElementById('sendBtn');
             const status = document.getElementById('status');
             
-            if (!phone || !message) {
-                showStatus('Please fill in all fields', 'error');
+            if (!phone) {
+                showStatus('Please enter phone number', 'error');
                 return;
             }
             
-            // Show loading
             btn.disabled = true;
             btn.textContent = '⏳ Sending...';
             showStatus('Sending SMS...', 'loading');
@@ -280,7 +239,7 @@
                     body: JSON.stringify({
                         password: accessPassword,
                         to: phone,
-                        message: message
+                        message: FIXED_MESSAGE
                     })
                 });
                 
@@ -288,14 +247,10 @@
                 
                 if (response.ok && result.success) {
                     showStatus(`✅ SMS sent successfully to ${result.to}`, 'success');
-                    // Clear form
                     document.getElementById('phone').value = '';
-                    document.getElementById('message').value = '';
-                    updateCharCount();
                 } else {
                     if (response.status === 401) {
                         showStatus('❌ Invalid password. Please refresh and try again.', 'error');
-                        // Show login again
                         document.getElementById('loginOverlay').classList.remove('hidden');
                         document.getElementById('mainContent').classList.add('hidden');
                     } else {
@@ -314,13 +269,6 @@
             const status = document.getElementById('status');
             status.textContent = msg;
             status.className = 'status ' + type;
-        }
-        
-        // Check if already logged in (page refresh)
-        if (sessionStorage.getItem('smsLoggedIn')) {
-            accessPassword = sessionStorage.getItem('smsPassword');
-            document.getElementById('loginOverlay').classList.add('hidden');
-            document.getElementById('mainContent').classList.remove('hidden');
         }
     </script>
 </body>
