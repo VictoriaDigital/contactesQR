@@ -353,8 +353,8 @@ def create_leaflet():
     c.line(margin, y, width - margin, y)
     y -= 12
     
-    # QR code - points to GitHub Pages
-    qr_url = "https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=https://victoriadigital.github.io/contactesQR/"
+    # QR code - points to Netlify
+    qr_url = "https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=https://liaisonpsychiatryteam.netlify.app/"
     qr_path = "/tmp/leaflet_qr.png"
     try:
         urllib.request.urlretrieve(qr_url, qr_path)
@@ -375,7 +375,7 @@ def create_leaflet():
     ty -= 14
     c.setFillColor(GRAY)
     c.setFont("Helvetica", 8)
-    c.drawString(tx, ty, "victoriadigital.github.io/contactesQR")
+    c.drawString(tx, ty, "liaisonpsychiatryteam.netlify.app")
     
     ty -= 20
     c.setFillColor(HexColor('#95a5a6'))
