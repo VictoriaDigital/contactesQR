@@ -114,7 +114,7 @@ def create_leaflet():
     # Badges
     badge_x = tx + 95
     badge_x += draw_badge(c, badge_x, ty - 2, "FREE", GREEN)
-    badge_x += draw_badge(c, badge_x, ty - 2, "Thu–Sun 6pm–12am", HexColor('#5dade2'), HexColor('#1a5276'))
+    badge_x += draw_badge(c, badge_x, ty - 2, "Thu–Sun, 6pm – Midnight", HexColor('#5dade2'), HexColor('#1a5276'))
     
     # Description - MUST match website exactly
     ty -= 18
@@ -205,7 +205,7 @@ def create_leaflet():
     ty -= 12
     c.setFillColor(HexColor('#7f8c8d'))
     c.setFont("Helvetica-Oblique", 7)
-    c.drawString(tx, ty, "48/An Post/Clear Mobile users: WhatsApp or text 086 180 0280 (standard rates)")
+    c.drawString(tx, ty, "48, An Post & Clear Mobile: Use WhatsApp for free, or text HELLO to 086 180 0280 (standard SMS rates may apply)")
     
     y -= section_height + 35
     
