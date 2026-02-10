@@ -97,11 +97,11 @@ def create_leaflet():
     # ============================================
     # === SECTION 1: SOLACE CAFÉ ===
     # ============================================
-    section_height = 95
+    section_height = 105
     draw_section_box(c, margin, y - section_height, content_width, section_height, GREEN_BG, GREEN)
     
-    tx = margin + 12
-    ty = y - 18
+    tx = margin + 15
+    ty = y - 22
     
     # Title row
     emoji_path = get_emoji_image("☕", 16)
@@ -163,11 +163,11 @@ def create_leaflet():
     # ============================================
     # === SECTION 2: TEXT ABOUT IT ===
     # ============================================
-    section_height = 65
+    section_height = 75
     draw_section_box(c, margin, y - section_height, content_width, section_height, BLUE_BG, BLUE_LIGHT)
     
-    tx = margin + 12
-    ty = y - 18
+    tx = margin + 15
+    ty = y - 22
     
     # Title row
     emoji_path = get_emoji_image("💬", 16)
@@ -205,7 +205,7 @@ def create_leaflet():
     c.setFont("Helvetica-Oblique", 7)
     c.drawString(tx, ty, "48/An Post/Clear Mobile users: WhatsApp or text 086 180 0280 (standard rates)")
     
-    y -= section_height + 12
+    y -= section_height + 22
     
     # ============================================
     # === SECTION 3: CRISIS HELPLINES ===
@@ -226,13 +226,13 @@ def create_leaflet():
     
     # Two boxes side by side
     col_width = (content_width - 10) / 2
-    box_height = 55
+    box_height = 65
     
     # --- Samaritans ---
     draw_section_box(c, margin, y - box_height, col_width, box_height, LIGHT_BG)
     
-    tx = margin + 12
-    ty = y - 16
+    tx = margin + 15
+    ty = y - 20
     
     c.setFillColor(HexColor('#2c3e50'))
     c.setFont("Helvetica-Bold", 12)
@@ -255,8 +255,8 @@ def create_leaflet():
     # --- Pieta House ---
     draw_section_box(c, margin + col_width + 10, y - box_height, col_width, box_height, LIGHT_BG)
     
-    tx = margin + col_width + 22
-    ty = y - 16
+    tx = margin + col_width + 25
+    ty = y - 20
     
     c.setFillColor(HexColor('#2c3e50'))
     c.setFont("Helvetica-Bold", 12)
@@ -286,11 +286,11 @@ def create_leaflet():
     # ============================================
     # === SECTION 4: EMERGENCY ===
     # ============================================
-    section_height = 70
+    section_height = 80
     draw_section_box(c, margin, y - section_height, content_width, section_height, RED_BG, RED)
     
-    tx = margin + 12
-    ty = y - 18
+    tx = margin + 15
+    ty = y - 22
     
     # Title row
     emoji_path = get_emoji_image("🚨", 16)
