@@ -22,6 +22,73 @@ LIGHT_BG = HexColor('#f8f9fa')
 GREEN_BG = HexColor('#f0fdf4')
 RED_BG = HexColor('#fef2f2')
 
+# Emoji image cache
+EMOJI_CACHE_DIR = "/tmp/emoji_cache"
+os.makedirs(EMOJI_CACHE_DIR, exist_ok=True)
+
+def get_emoji_image(emoji_char, size=16):
+    """Download emoji image from Twemoji CDN."""
+    # Convert emoji to codepoint for Twemoji URL
+    codepoints = '-'.join(f'{ord(c):x}' for c in emoji_char if ord(c) > 255)
+    if not codepoints:
+        return None
+    
+    cache_path = os.path.join(EMOJI_CACHE_DIR, f"{codepoints}.png")
+    
+    if not os.path.exists(cache_path):
+        # Try Twemoji (Twitter's open source emojis)
+        url = f"https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/{codepoints}.png"
+        try:
+            urllib.request.urlretrieve(url, cache_path)
+        except Exception as e:
+            print(f"Could not download emoji {emoji_char}: {e}")
+            return None
+    
+    return cache_path
+
+def draw_text_with_emoji(c, x, y, text, font_name="Helvetica-Bold", font_size=11, emoji_size=None):
+    """Draw text with embedded emoji images."""
+    if emoji_size is None:
+        emoji_size = font_size + 2
+    
+    c.setFont(font_name, font_size)
+    current_x = x
+    
+    i = 0
+    while i < len(text):
+        char = text[i]
+        
+        # Check if this is an emoji (basic detection - high unicode)
+        if ord(char) > 0x1F300:
+            # Handle potential multi-char emoji (like flag sequences)
+            emoji = char
+            j = i + 1
+            while j < len(text) and (ord(text[j]) > 0x1F300 or ord(text[j]) == 0xFE0F or ord(text[j]) == 0x200D):
+                emoji += text[j]
+                j += 1
+            
+            emoji_path = get_emoji_image(emoji, emoji_size)
+            if emoji_path and os.path.exists(emoji_path):
+                c.drawImage(emoji_path, current_x, y - 2, width=emoji_size, height=emoji_size, mask='auto')
+                current_x += emoji_size + 2
+            else:
+                # Fallback: skip the emoji
+                pass
+            
+            i = j
+        else:
+            # Regular text - accumulate until we hit an emoji
+            text_chunk = ""
+            while i < len(text) and ord(text[i]) <= 0x1F300:
+                text_chunk += text[i]
+                i += 1
+            
+            if text_chunk:
+                c.drawString(current_x, y, text_chunk)
+                current_x += c.stringWidth(text_chunk, font_name, font_size)
+    
+    return current_x
+
 def draw_rounded_rect(c, x, y, width, height, radius, fill_color=None, stroke_color=None, left_border_color=None, left_border_width=3):
     """Draw a rounded rectangle with optional left border accent."""
     c.saveState()
@@ -49,8 +116,13 @@ def create_leaflet():
     
     # === HEADER ===
     c.setFillColor(BLUE_DARK)
+    # Title with emoji
+    title_x = width / 2 - 90
     c.setFont("Helvetica-Bold", 22)
-    c.drawCentredString(width / 2, y - 10, "🏥 Mental Health Supports")
+    emoji_path = get_emoji_image("🏥", 24)
+    if emoji_path:
+        c.drawImage(emoji_path, title_x, y - 15, width=24, height=24, mask='auto')
+    c.drawString(title_x + 30, y - 10, "Mental Health Supports")
     y -= 25
     
     c.setFillColor(GRAY)
@@ -67,7 +139,10 @@ def create_leaflet():
     # === SOLACE CAFÉ ===
     c.setFillColor(BLUE_DARK)
     c.setFont("Helvetica-Bold", 12)
-    c.drawString(margin, y, "☕ Community Support (Limerick)")
+    emoji_path = get_emoji_image("☕", 14)
+    if emoji_path:
+        c.drawImage(emoji_path, margin, y - 3, width=14, height=14, mask='auto')
+    c.drawString(margin + 18, y, "Community Support (Limerick)")
     y -= 18
     
     box_height = 85
@@ -88,12 +163,15 @@ def create_leaflet():
     c.setFont("Helvetica-Bold", 7)
     c.drawString(tx + 75, ty, "FREE")
     
-    # Hours badge
+    # Hours badge with clock emoji
     c.setFillColor(HexColor('#e8f4fd'))
-    c.roundRect(tx + 110, ty - 3, 130, 14, 5, fill=1, stroke=0)
+    c.roundRect(tx + 110, ty - 3, 145, 14, 5, fill=1, stroke=0)
+    emoji_path = get_emoji_image("🕕", 10)
+    if emoji_path:
+        c.drawImage(emoji_path, tx + 113, ty - 2, width=10, height=10, mask='auto')
     c.setFillColor(BLUE_DARK)
     c.setFont("Helvetica-Bold", 8)
-    c.drawString(tx + 115, ty, "🕕 Thu–Sun, 6pm – Midnight")
+    c.drawString(tx + 126, ty, "Thu–Sun, 6pm – Midnight")
     
     ty -= 15
     c.setFillColor(GRAY)
@@ -105,19 +183,39 @@ def create_leaflet():
     ty -= 12
     c.setFillColor(HexColor('#7f8c8d'))
     c.setFont("Helvetica-Oblique", 8)
-    c.drawString(tx, ty, "📍 Limerick Mental Health Association, Sarsfield Bridge (Former Pier One Hotel)")
+    emoji_path = get_emoji_image("📍", 10)
+    if emoji_path:
+        c.drawImage(emoji_path, tx, ty - 2, width=10, height=10, mask='auto')
+    c.drawString(tx + 13, ty, "Limerick Mental Health Association, Sarsfield Bridge (Former Pier One Hotel)")
     
     ty -= 15
     c.setFillColor(HexColor('#2c3e50'))
     c.setFont("Helvetica-Bold", 9)
-    c.drawString(tx, ty, "📞 061 446 786    💬 Text/WhatsApp: 085 261 2025    ✉️ solace@limerickmentalhealth.ie")
+    # Phone emoji
+    emoji_path = get_emoji_image("📞", 10)
+    if emoji_path:
+        c.drawImage(emoji_path, tx, ty - 2, width=10, height=10, mask='auto')
+    c.drawString(tx + 13, ty, "061 446 786")
+    # Text/WhatsApp emoji
+    emoji_path = get_emoji_image("💬", 10)
+    if emoji_path:
+        c.drawImage(emoji_path, tx + 80, ty - 2, width=10, height=10, mask='auto')
+    c.drawString(tx + 93, ty, "Text/WhatsApp: 085 261 2025")
+    # Email emoji
+    emoji_path = get_emoji_image("📧", 10)
+    if emoji_path:
+        c.drawImage(emoji_path, tx + 235, ty - 2, width=10, height=10, mask='auto')
+    c.drawString(tx + 248, ty, "solace@limerickmentalhealth.ie")
     
     y -= box_height + 12
     
     # === TEXT ABOUT IT ===
     c.setFillColor(BLUE_DARK)
     c.setFont("Helvetica-Bold", 12)
-    c.drawString(margin, y, "💬 Text Support")
+    emoji_path = get_emoji_image("💬", 14)
+    if emoji_path:
+        c.drawImage(emoji_path, margin, y - 3, width=14, height=14, mask='auto')
+    c.drawString(margin + 18, y, "Text Support")
     y -= 18
     
     box_height = 55
@@ -152,7 +250,10 @@ def create_leaflet():
     ty -= 15
     c.setFillColor(HexColor('#2c3e50'))
     c.setFont("Helvetica-Bold", 9)
-    c.drawString(tx, ty, "💬 Text 50808    •    WhatsApp: 086 180 4253")
+    emoji_path = get_emoji_image("💬", 10)
+    if emoji_path:
+        c.drawImage(emoji_path, tx, ty - 2, width=10, height=10, mask='auto')
+    c.drawString(tx + 13, ty, "Text 50808    •    WhatsApp: 086 180 4253")
     
     ty -= 10
     c.setFillColor(HexColor('#7f8c8d'))
@@ -164,7 +265,10 @@ def create_leaflet():
     # === CRISIS HELPLINES ===
     c.setFillColor(BLUE_DARK)
     c.setFont("Helvetica-Bold", 12)
-    c.drawString(margin, y, "📞 Crisis Helplines")
+    emoji_path = get_emoji_image("📞", 14)
+    if emoji_path:
+        c.drawImage(emoji_path, margin, y - 3, width=14, height=14, mask='auto')
+    c.drawString(margin + 18, y, "Crisis Helplines")
     y -= 18
     
     # Two column layout for helplines
@@ -194,7 +298,10 @@ def create_leaflet():
     c.roundRect(tx, ty - 5, col_width - 20, 22, 4, fill=1, stroke=0)
     c.setFillColor(HexColor('#ffffff'))
     c.setFont("Helvetica-Bold", 14)
-    c.drawCentredString(tx + (col_width - 20) / 2, ty + 2, "📞 116 123")
+    emoji_path = get_emoji_image("📞", 14)
+    if emoji_path:
+        c.drawImage(emoji_path, tx + 25, ty - 3, width=14, height=14, mask='auto')
+    c.drawString(tx + 43, ty + 2, "116 123")
     
     # Pieta House
     draw_rounded_rect(c, margin + col_width + 10, y - box_height, col_width, box_height, 4, fill_color=LIGHT_BG)
@@ -219,7 +326,10 @@ def create_leaflet():
     c.roundRect(tx, ty - 5, col_width - 20, 22, 4, fill=1, stroke=0)
     c.setFillColor(HexColor('#ffffff'))
     c.setFont("Helvetica-Bold", 14)
-    c.drawCentredString(tx + (col_width - 20) / 2, ty + 2, "📞 1800 247 247")
+    emoji_path = get_emoji_image("📞", 14)
+    if emoji_path:
+        c.drawImage(emoji_path, tx + 15, ty - 3, width=14, height=14, mask='auto')
+    c.drawString(tx + 33, ty + 2, "1800 247 247")
     
     y -= box_height + 5
     
@@ -231,7 +341,10 @@ def create_leaflet():
     # === EMERGENCY ===
     c.setFillColor(BLUE_DARK)
     c.setFont("Helvetica-Bold", 12)
-    c.drawString(margin, y, "🚨 Emergency")
+    emoji_path = get_emoji_image("🚨", 14)
+    if emoji_path:
+        c.drawImage(emoji_path, margin, y - 3, width=14, height=14, mask='auto')
+    c.drawString(margin + 18, y, "Emergency")
     y -= 18
     
     box_height = 60
@@ -265,8 +378,12 @@ def create_leaflet():
     c.roundRect(tx + 150, ty - 5, 80, 25, 5, fill=1, stroke=0)
     c.setFillColor(HexColor('#ffffff'))
     c.setFont("Helvetica-Bold", 14)
-    c.drawCentredString(tx + 90, ty + 3, "📞 999")
-    c.drawCentredString(tx + 190, ty + 3, "📞 112")
+    emoji_path = get_emoji_image("📞", 14)
+    if emoji_path:
+        c.drawImage(emoji_path, tx + 60, ty - 1, width=14, height=14, mask='auto')
+        c.drawImage(emoji_path, tx + 160, ty - 1, width=14, height=14, mask='auto')
+    c.drawString(tx + 78, ty + 3, "999")
+    c.drawString(tx + 178, ty + 3, "112")
     
     y -= box_height + 15
     
