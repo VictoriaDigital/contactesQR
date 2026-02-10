@@ -97,7 +97,7 @@ def create_leaflet():
     # ============================================
     # === SECTION 1: SOLACE CAFÉ ===
     # ============================================
-    section_height = 105
+    section_height = 115
     draw_section_box(c, margin, y - section_height, content_width, section_height, GREEN_BG, GREEN)
     
     tx = margin + 15
@@ -116,13 +116,15 @@ def create_leaflet():
     badge_x += draw_badge(c, badge_x, ty - 2, "FREE", GREEN)
     badge_x += draw_badge(c, badge_x, ty - 2, "Thu–Sun 6pm–12am", HexColor('#5dade2'), HexColor('#1a5276'))
     
-    # Description
+    # Description - MUST match website exactly
     ty -= 18
     c.setFillColor(HexColor('#2c3e50'))
-    c.setFont("Helvetica", 9)
-    c.drawString(tx, ty, "Confidential, non-clinical mental health support for adults in emotional distress.")
-    ty -= 12
-    c.drawString(tx, ty, "Book a 1-hour session with trained support workers and peer connectors.")
+    c.setFont("Helvetica", 8)
+    c.drawString(tx, ty, "Confidential, non-clinical mental health support for adults experiencing emotional distress,")
+    ty -= 10
+    c.drawString(tx, ty, "anxiety, or feeling overwhelmed. Book a 1-hour session with trained support workers and")
+    ty -= 10
+    c.drawString(tx, ty, "peer connectors. Access coping strategies, one-to-one support, and sign-posting to local services.")
     
     # Divider inside box
     ty -= 10
@@ -182,11 +184,11 @@ def create_leaflet():
     badge_x += draw_badge(c, badge_x, ty - 2, "FREE", GREEN)
     badge_x += draw_badge(c, badge_x, ty - 2, "24/7", GREEN)
     
-    # Description
+    # Description - MUST match website exactly
     ty -= 18
     c.setFillColor(HexColor('#2c3e50'))
     c.setFont("Helvetica", 9)
-    c.drawString(tx, ty, "Anonymous text-based support. Text the word HELLO to start a conversation.")
+    c.drawString(tx, ty, "24/7 anonymous text-based support service. Text the word HELLO to start.")
     
     # Contact
     ty -= 16
@@ -286,7 +288,7 @@ def create_leaflet():
     # ============================================
     # === SECTION 4: EMERGENCY ===
     # ============================================
-    section_height = 80
+    section_height = 90
     draw_section_box(c, margin, y - section_height, content_width, section_height, RED_BG, RED)
     
     tx = margin + 15
@@ -303,11 +305,13 @@ def create_leaflet():
     # 24/7 badge
     draw_badge(c, tx + 100, ty - 2, "24/7", RED)
     
-    # Description
+    # Description - MUST match website exactly
     ty -= 18
     c.setFillColor(HexColor('#2c3e50'))
-    c.setFont("Helvetica", 9)
-    c.drawString(tx, ty, "If you or someone is at immediate risk of harm or needs urgent medical attention.")
+    c.setFont("Helvetica", 8)
+    c.drawString(tx, ty, "For mental health crisis assessment. If you or someone is at immediate risk of harm or needs")
+    ty -= 10
+    c.drawString(tx, ty, "urgent medical treatment, always call emergency services.")
     
     # Divider inside box
     ty -= 10
@@ -349,8 +353,8 @@ def create_leaflet():
     c.line(margin, y, width - margin, y)
     y -= 12
     
-    # QR code
-    qr_url = "https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=https://liaisonpsychiatryteam.netlify.app/"
+    # QR code - points to GitHub Pages
+    qr_url = "https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=https://victoriadigital.github.io/contactesQR/"
     qr_path = "/tmp/leaflet_qr.png"
     try:
         urllib.request.urlretrieve(qr_url, qr_path)
@@ -371,7 +375,7 @@ def create_leaflet():
     ty -= 14
     c.setFillColor(GRAY)
     c.setFont("Helvetica", 8)
-    c.drawString(tx, ty, "liaisonpsychiatryteam.netlify.app")
+    c.drawString(tx, ty, "victoriadigital.github.io/contactesQR")
     
     ty -= 20
     c.setFillColor(HexColor('#95a5a6'))
